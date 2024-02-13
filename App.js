@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NavigationBar from './components/NavigationBar';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,10 +31,41 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <NavigationBar {...props} />}>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+       <Tab.Navigator
+        tabBar={(props) => <NavigationBar {...props} />}
+        screenOptions={({ route }) => ({
+          tabBarLabel: () => null, // Set tabBarLabel to null to hide it
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Search') {
+              iconName = focused ? 'search' : 'search-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person' : 'person-outline';
+            }
+
+            // Return the Ionicon component
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen}
+          options={{ title: 'Главная', headerShown: false }}
+        />
+        <Tab.Screen 
+          name="Search" 
+          component={SearchScreen} 
+          options={{ title: 'Поиск', headerShown: false }}
+        />
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{ title: 'Кабинет', headerShown: false }} 
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
