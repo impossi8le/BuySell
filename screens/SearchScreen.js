@@ -1,8 +1,10 @@
 // SearchScreen.js
-import React from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import ProductItem from '../components/ProductItem';
+import { useNavigation } from '@react-navigation/native';
+
 
 const products = [
   {
@@ -11,6 +13,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '82 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 2,
@@ -18,6 +21,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '81 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 3,
@@ -25,6 +29,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '87 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 4,
@@ -32,6 +37,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '855 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 5,
@@ -39,6 +45,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '82 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 6,
@@ -46,6 +53,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '81 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 7,
@@ -53,6 +61,7 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '87 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
   {
     id: 8,
@@ -60,24 +69,50 @@ const products = [
     location: 'г. Набережные Челны, пр-т Мира, 24А',
     price: '855 000 руб.',
     imageUrl: 'https://via.placeholder.com/100',
+    description: 'test',
   },
 ];
 
 export default function SearchScreen() {
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const navigation = useNavigation();
+
+
+  // Функция для обработки изменений в поле ввода
+  const handleSearchChange = (text) => {
+    setSearchQuery(text);
+  };
+
+  // Фильтрация продуктов в соответствии с запросом поиска
+  const filteredProducts = products.filter(product =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <SafeAreaView edges={['bottom', 'top']} style={styles.container}>
+      <Text style={styles.headerText}>Поиск</Text>
+      <TextInput
+        style={styles.searchInput}
+        onChangeText={handleSearchChange}
+        value={searchQuery}
+        placeholder="Поиск..."
+        clearButtonMode="while-editing"
+      />
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <ProductItem
-            title={item.title}
-            location={item.location}
-            price={item.price}
-            imageUrl={item.imageUrl}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('ProductDetail', { ...item })}>
+            <ProductItem
+              title={item.title}
+              location={item.location}
+              price={item.price}
+              imageUrl={item.imageUrl}
+            />
+          </TouchableOpacity>
         )}
-        ListHeaderComponent={() => <Text style={styles.headerText}>Поиск</Text>}
       />
     </SafeAreaView>
   );
@@ -98,6 +133,15 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 22,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  searchInput: {
+    height: 40,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
   },
   thumbnail: {
     height: 200, // Adjust the height as needed

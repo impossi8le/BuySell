@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProductItem = ({ title, location, price, imageUrl }) => {
+const ProductItem = ({ title, location, price, imageUrl}) => {
   return (
     <View style={styles.itemContainer}>
         <View style={styles.fistPart}>
