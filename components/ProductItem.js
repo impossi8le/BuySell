@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProductItem = ({ title, location, price, imageUrl}) => {
+const ProductItem = ({ title, time, price, imageUrl, location}) => {
   return (
     <View style={styles.itemContainer}>
         <View style={styles.fistPart}>
@@ -10,6 +10,7 @@ const ProductItem = ({ title, location, price, imageUrl}) => {
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.location}>{location}</Text>
+                <Text style={styles.time}>{time}</Text>
             </View>
         </View>     
         <View style={styles.priceContainer}>

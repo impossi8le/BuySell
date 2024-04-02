@@ -1,18 +1,22 @@
 // ProductDetailScreen.js
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { Button } from 'react-native-web';
 
 const ProductDetailScreen = ({ route }) => {
-  const { title, location, price, imageUrl, description } = route.params;
+  const { title,  time, location, price, imageUrl, description } = route.params;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
+      {/* <Image source={{ uri: imageUrl }} style={styles.image} /> */}
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
-        <Text style={styles.location}>{location}</Text>
+        {/* <Text style={styles.location}>{location}</Text> */}
+        <Text style={styles.time}>{time}</Text>
+
         <Text style={styles.price}>{price}</Text>
+        
       </View>
     </ScrollView>
   );

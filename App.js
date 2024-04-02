@@ -22,8 +22,8 @@ const SearchStack = createStackNavigator();
 // Load fonts outside of the App component
 const loadFonts = async () => {
   await Font.loadAsync({
-    'Montserrat': require('./assets/fonts/Montserrat-Regular.ttf'),
-    'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+    // 'Montserrat': require('./assets/fonts/Montserrat-Regular.ttf'),
+    // 'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
     // Include other font weights as needed
   });
 };
@@ -81,7 +81,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBar={(props) => <NavigationBar {...props} />}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -94,12 +93,42 @@ const App = () => {
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarLabel: () => null,
+          tabBarActiveTintColor: '#069',
+          tabBarInactiveTintColor: 'gray',
+          tabBarLabelStyle: {
+            // paddingVertical: 5, // Add paddingVertical as needed
+            // Any other styles for your tabBarLabel can also go here
+          },
+          tabBarStyle: {
+            paddingVertical: 5, // Add paddingVertical to the tabBarStyle
+            // Any other styles for the tabBar itself can also go here
+          },
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Search" component={SearchStackScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ 
+            headerShown: false, 
+            tabBarLabel: 'Главная' // Set the tabBarLabel to the Russian name
+          }} 
+        />
+        <Tab.Screen 
+          name="Search" 
+          component={SearchStackScreen} 
+          options={{ 
+            headerShown: false, 
+            tabBarLabel: 'Поиск' // Set the tabBarLabel to the Russian name
+          }} 
+        />
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{ 
+            headerShown: false, 
+            tabBarLabel: 'Кабинет' // Set the tabBarLabel to the Russian name
+          }} 
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,7 @@
 // HomeScreen.js
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
@@ -13,19 +14,34 @@ export default function HomeScreen() {
         
         <Image
           style={styles.thumbnail}
-          source={{ uri: 'your-image-url' }} // Replace with your image URL or require statement
+          // source={{ uri: 'your-image-url' }} // Replace with your image URL or require statement
+          source={require('../assets/img/home.png')}         
         />
         
         <Text style={styles.description}>
           Откуда взять ссылку с объявлениями
-        </Text>
+        </Text>       
 
-        <TouchableOpacity style={[styles.button, styles.firstButton]}>
-          <Text style={styles.buttonText}>КАК УВЕЛИЧИТЬ ПРИБЫЛЬ</Text>
+        <TouchableOpacity style={styles.button}>
+          <LinearGradient
+            colors={['#e22821', '#106299']} // Define your gradient colors array
+            style={styles.gradient}
+            start={{x: 0.5, y: 0}} // Gradient start position
+            end={{x: 1, y: 0}}   // Gradient end position
+          >
+            <Text style={styles.buttonText}>КАК УВЕЛИЧИТЬ ПРИБЫЛЬ</Text>
+          </LinearGradient>
         </TouchableOpacity>
         
-        <TouchableOpacity style={[styles.button, styles.secondButton]}>
-          <Text style={styles.buttonText}>КАК ПОДКЛЮЧИТЬ БОТА</Text>
+        <TouchableOpacity style={styles.button}>
+          <LinearGradient
+            colors={['#e22821', '#106299']} // Define your gradient colors array
+            style={styles.gradient}
+            start={{x: 0.5, y: 0}} // Gradient start position
+            end={{x: 1, y: 0}}   // Gradient end position
+          >
+            <Text style={styles.buttonText}>КАК ПОДКЛЮЧИТЬ БОТА</Text>
+          </LinearGradient>
         </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -33,6 +49,18 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    paddingVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    width: 390,
+    marginBottom: -65,
+  },
+  button: {
+    borderRadius: 10, // This should match the borderRadius of the gradient to prevent overflow
+    // overflow: 'hidden', // Ensures the gradient does not bleed outside the border radius
+  },
   container: {
     padding: 15,
     flex: 1,
@@ -48,14 +76,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   thumbnail: {
-    height: 200, // Adjust the height as needed
-    resizeMode: 'cover',
-    marginHorizontal: 10,
+    // height: 200, // Adjust the height as needed
+    width: '100%', // Adjust the width as neededdth: 200, // Adjust the width as neededdth: 200, // Adjust the width as neededdth: 380, // Adjust the width as needed
+    // resizeMode: 'cover',
+    marginVertical: 30,
     borderRadius: 10, // Round the corners
   },
   description: {
-    marginBottom: 40,
-    fontSize: 18,
+    marginBottom: 20,
+    fontSize: 20,
   },
   button: {
     // height: 50,
@@ -65,16 +94,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 5,
   },
-  firstButton: {
-    backgroundColor: 'red', // Use a gradient if needed
-  },
-  secondButton: {
-    backgroundColor: 'blue', // Use a gradient if needed
-  },
+
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
+    letterSpacing: 2,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+
   },
 });
 
